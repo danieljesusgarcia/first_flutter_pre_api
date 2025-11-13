@@ -12,20 +12,16 @@ class SentenceVM extends ChangeNotifier {
   SentenceVM({
     required ISentenceRepository sentenceRepository,
   }) : _sentenceRepository = sentenceRepository {
-    _favorites = _sentenceRepository.favorites;
-    _history = _sentenceRepository.history;
     _current = _sentenceRepository.current;
   }
 
   // Internal State
   late Sentence _current;
-  List<Sentence> _history = [];
-  List<Sentence> _favorites = [];
 
   // Getters
   Sentence get current => _current;
-  UnmodifiableListView<Sentence> get history => UnmodifiableListView(_history);
-  UnmodifiableListView<Sentence> get favorites => UnmodifiableListView(_favorites);
+  UnmodifiableListView<Sentence> get history => UnmodifiableListView(_sentenceRepository.history);
+  UnmodifiableListView<Sentence> get favorites => UnmodifiableListView(_sentenceRepository.favorites);
 
   void next(){
     _current = _sentenceRepository.getNext();
