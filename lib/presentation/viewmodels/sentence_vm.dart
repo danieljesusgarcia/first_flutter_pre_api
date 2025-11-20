@@ -23,8 +23,8 @@ class SentenceVM extends ChangeNotifier {
   UnmodifiableListView<Sentence> get history => UnmodifiableListView(_sentenceRepository.history);
   UnmodifiableListView<Sentence> get favorites => UnmodifiableListView(_sentenceRepository.favorites);
 
-  void next(){
-    _current = _sentenceRepository.getNext();
+  Future<void> next() async {
+    _current = await _sentenceRepository.getNext();
     notifyListeners();
   }
 

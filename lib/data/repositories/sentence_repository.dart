@@ -4,9 +4,9 @@ import 'package:first_flutter/data/services/sentence_service.dart';
 abstract class ISentenceRepository {
   List<Sentence> get history;
   List<Sentence> get favorites;
-  Sentence get current;
+  Future<Sentence> get current;
   
-  Sentence getNext();
+  Future<Sentence> getNext();
   void toggleFavorite(Sentence sentence);
   bool isFavorite(Sentence pair);
 }
@@ -30,11 +30,11 @@ class SentenceRepository implements ISentenceRepository {
   @override
   List<Sentence> get favorites => _favorites;
   @override
-  Sentence get current => _current;
+  Future<Sentence> get current => _current;
 
   @override
-  Sentence getNext() {
-    _history.insert(0, _current);
+  Future<Sentence> getNext() async {
+    _history.insert(0, await _current);
     _current = _sentenceService.getNext();
     return _current;
   }
